@@ -22,6 +22,7 @@ const (
 // Good for things that have an is-a or has-a relationship
 // structs can be passed into functions to create a similar
 // effect that python methods have.
+
 type Value struct {
 	typ   string
 	str   string
@@ -140,6 +141,7 @@ func (r *Resp) readBulk() (Value, error) {
 // Writer portion of the RESP handler
 
 // Call marshal function for corresponding value type
+
 func (v Value) Marshal() []byte {
 	switch v.typ {
 	case "array":
