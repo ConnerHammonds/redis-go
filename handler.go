@@ -3,12 +3,11 @@ package main
 import "sync"
 
 var Handlers = map[string]func([]Value) Value{
-	"PING":    ping,
-	"SET":     set,
-	"GET":     get,
-	"HSET":    hset,
-	"HGET":    hget,
-	"HGETALL": hgetall,
+	"PING": ping,
+	"SET":  set,
+	"GET":  get,
+	"HSET": hset,
+	"HGET": hget,
 }
 
 func ping(args []Value) Value {

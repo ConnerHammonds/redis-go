@@ -22,6 +22,19 @@ func main() {
 	}
 	defer aof.Close()
 
+	aof.Read(func(value Value) {
+		command := strings.ToUpper(value.array[0].bulk)
+		args := value.array[1:]
+
+		handler, ok := Handlers[command]
+		if !ok {
+			fmt.Println("Invalid command: ", command)
+			return
+		}
+
+		handler(args)
+	})
+
 	// Listen for connections
 	conn, err := l.Accept()
 	if err != nil {
@@ -59,6 +72,8 @@ func main() {
 			continue
 		}
 
+		// Write value struct to aof file only if the command is SET or HSET
+		// Don't need to write get commands to aof as they only retrieve data
 		if command == "SET" || command == "HSET" {
 			aof.Write(value)
 		}
