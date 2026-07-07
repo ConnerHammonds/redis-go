@@ -125,7 +125,6 @@ func (r *Resp) readBulk() (Value, error) {
 	bulk := make([]byte, len)
 
 	r.reader.Read(bulk)
-	fmt.Println("Hello World")
 
 	v.bulk = string(bulk)
 
